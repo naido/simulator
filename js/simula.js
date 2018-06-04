@@ -56,9 +56,9 @@ function calcula_cav(){
 	return cav_subt;
 }
 
-function simula_fatura_simples() {
-	var cat_pr_ene = 0.15729; //valor do kWh
-	var cat_pr_tf = 0.27068; //valor dia
+function simula_fatura_simples(pr_e, pr_tf) {
+	var cat_pr_ene = pr_e; //0.15729; //valor do kWh
+	var cat_pr_tf = pr_tf; //0.27068; //valor dia
 	var total_fatura = 0;
 	
 	var ene_subt = 0;
@@ -75,15 +75,13 @@ function simula_fatura_simples() {
 	
 	total_fatura = ene_subt + tx_subt + iva_subt + cav_subt;
 	total_fatura = Math.round(total_fatura * 100) / 100; //arredondar a duas casas decimais			 
- 
- 	document.getElementById("val_fat").innerHTML = total_fatura;
-	document.getElementById("sim_res").hidden = false;
+ 	return total_fatura;
 }
 
-function simula_fatura_bh(){
-	var cat_pr_ene_hv = 0.0959; //valor do kWh
-	var cat_pr_ene_hfv = 0.2008; //valor do kWh
-	var cat_pr_tf = 0.2778; //valor dia
+function simula_fatura_bh(pr_v, pr_fv, pr_f){
+	var cat_pr_ene_hv = pr_v; //0.0959; //valor do kWh
+	var cat_pr_ene_hfv = pr_fv; //0.2008; //valor do kWh
+	var cat_pr_tf = pr_f; //0.2778; //valor dia
 	var total_fatura = 0;
 	
 	var ene_subt = 0;
@@ -103,7 +101,53 @@ function simula_fatura_bh(){
 	
 	total_fatura = ene_subt + tx_subt + iva_subt + cav_subt;
 	total_fatura = Math.round(total_fatura * 100) / 100; //arredondar a duas casas decimais			 
- 
- 	document.getElementById("val_fat").innerHTML = total_fatura;
-	document.getElementById("sim_res").hidden = false;
+	return total_fatura;
 }
+
+function listar_sim_simples(){
+	//parametros (pr_kwh, pr_tf)
+	var total_fatura = simula_fatura_simples(0.15729, 0.27068); //tarifa simples EDP
+ 	adiciona_resultado("EDP Comercial", "Tarifa Simples Eco+", total_fatura);
+	
+	total_fatura = simula_fatura_simples(0.1564, 0.2212); //tarifa simples Endesa
+	adiciona_resultado("Endesa", "Quero+Luz", total_fatura);
+}
+
+function listar_sim_bh(){
+	//parametros (hv, hfv, tf)
+	var total_fatura = simula_fatura_bh(0.0959, 0.2008, 0.2778);//tarifa bi-horária EDP
+	adiciona_resultado("EDP Comercial", "Bi-Horária Eco+", total_fatura);
+	
+	total_fatura = simula_fatura_bh(0.0954, 0.1897, 0.2212);//tarifa bi-horária Endesa
+	adiciona_resultado("Endesa", "Bi-horária +Luz", total_fatura);
+}
+
+function adiciona_resultado(com, nome_tarifa, val_sim) {
+        // creating rows
+        var tb = document.getElementById("result_table");
+        var row = document.createElement("tr");
+        var com = com;
+        var abc=2;
+		
+		/*Insere comercializador*/        
+        var cell = document.createElement("td");
+        var cellText = document.createTextNode(com);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+
+		/*Insere tarifa*/        
+        var cell = document.createElement("td");
+        var cellText = document.createTextNode(nome_tarifa);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+     
+     	/*Insere valor*/
+        var cell = document.createElement("td");
+        var cellText = document.createTextNode(val_sim+ " €");
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+                   
+		/*Adiciona linha à tabela*/        
+		document.getElementById("result_table").appendChild(row); // add the row to the end of the table body
+}
+

@@ -12,6 +12,20 @@ function calcula_energia_simples(csmo, pr_ene, pr_tf){
 	return ene_subt;
 }
 
+function calcula_energia_bh(csmo_hv, csmo_hfv, cat_pr_ene_hv, cat_pr_ene_hfv, cat_pr_tf){
+	var n_dias = 30;
+	var ene_val_inc = 0;
+	var tf_val_inc = 0;
+	var ene_subt = 0;
+	
+	ene_val_inc = (csmo_hv * cat_pr_ene_hv) + (csmo_hfv * cat_pr_ene_hfv);
+	tf_val_inc = n_dias * cat_pr_tf;
+	
+	ene_subt = ene_val_inc + tf_val_inc;
+	
+	return ene_subt;
+}
+
 function calcula_taxas(csmo){
 	var tx_dgeg = 0.07; //valor fixo, mês 
 	var tx_iec = 0.001; //valor por kWh
@@ -43,8 +57,6 @@ function calcula_cav(){
 }
 
 function simula_fatura_simples() {
-	//alert("Função calcular_fatura() ativa");
-	//alert("Consumo inserido: " + document.getElementById("cons_mensal").value);
 	var cat_pr_ene = 0.15729; //valor do kWh
 	var cat_pr_tf = 0.27068; //valor dia
 	var total_fatura = 0;
@@ -62,16 +74,36 @@ function simula_fatura_simples() {
 	cav_subt = calcula_cav();
 	
 	total_fatura = ene_subt + tx_subt + iva_subt + cav_subt;
-
-		
-	
-
 	total_fatura = Math.round(total_fatura * 100) / 100; //arredondar a duas casas decimais			 
-	//alert("Resultado da simulação para um consumo de " + csmo + " kWh: \n" + total_csmo + " €");
-	document.getElementById("val_fat").innerHTML = total_fatura;
+ 
+ 	document.getElementById("val_fat").innerHTML = total_fatura;
 	document.getElementById("sim_res").hidden = false;
 }
 
 function simula_fatura_bh(){
-	alert("Operação ainda não disponível")
+	var cat_pr_ene_hv = 0.0959; //valor do kWh
+	var cat_pr_ene_hfv = 0.2008; //valor do kWh
+	var cat_pr_tf = 0.2778; //valor dia
+	var total_fatura = 0;
+	
+	var ene_subt = 0;
+	var tx_subt = 0;
+	var iva_subt = 0;
+	var cav_subt = 0;
+	
+	var csmo_hv = document.getElementById("cons_hv").value;
+	var csmo_hfv = document.getElementById("cons_hfv").value;
+	var csmo = 0;
+		
+	ene_subt = calcula_energia_bh(csmo_hv, csmo_hfv, cat_pr_ene_hv, cat_pr_ene_hfv, cat_pr_tf);
+	csmo = parseFloat(csmo_hv) + parseFloat(csmo_hfv); //csmo total, para efeitos de taxa DGEG
+	tx_subt = calcula_taxas(csmo);
+	iva_subt = calcula_iva(ene_subt + tx_subt);
+	cav_subt = calcula_cav();
+	
+	total_fatura = ene_subt + tx_subt + iva_subt + cav_subt;
+	total_fatura = Math.round(total_fatura * 100) / 100; //arredondar a duas casas decimais			 
+ 
+ 	document.getElementById("val_fat").innerHTML = total_fatura;
+	document.getElementById("sim_res").hidden = false;
 }

@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Simulador de Energia</title>
+		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script-->
+		<script src="utils.js"></script>
+		<script src="simula.js"></script>
+		
+	</head>
+	<body>
+		<h1>Benvindo ao simulador de Energia</h1>
+		<p>Este simulador pretende ser uma alternativa ao simulador da ERSE, disponível <a href="http://simulador.precos.erse.pt/">aqui</a></p>
+		<p>O simulador apenas se encontra disponível para simular a sua fatura de Eletricidade.</p>
+		<h2>Espaço de simulação</h2>
+		<label for="tip_csmo">Indique o seu tipo de consumo:</label><br/>
+		<input type="radio" name="tip_csmo" value = "s">Simples<br/>
+		<input type="radio" name="tip_csmo" value = "bh">Bi-Horário<br/><br/>
+		<input type="submit" value="Continuar" onclick="valida_tip_csmo()"></button><br/><br/>
+		
+		<div id="sim_simples" hidden>		
+		<label for="cons_mensal">Insira o seu Consumo Mensal:</label>
+		<input type="number" id="cons_mensal" placeholder="consumo em kWh" min="80"><br/><br/>
+		<input type="submit" value="Simular valor da fatura" onclick="simula_fatura_simples()"></button>
+		</div>
+		
+		<div id="sim_bh" hidden>		
+		<label for="cons_mensal">Insira o seu Consumo HV:</label>
+		<input type="number" id="cons_hv" placeholder="consumo em horas de vazio [kWh]" min="80"><br/><br/>
+		<label for="cons_mensal">Insira o seu Consumo HP:</label>
+		<input type="number" id="cons_hp" placeholder="consumo em horas de ponta [kWh]" min="80"><br/><br/>
+		
+		<input type="submit" value="Simular valor da fatura" onclick="simula_fatura_bh()"></button>
+		</div>
+		
+		<p id="sim_res" hidden>A sua fatura para o consumo indicado, teria o valor de <span id="val_fat"></span>  €</p> 
+		
+	</body>
+</html>

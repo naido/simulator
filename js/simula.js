@@ -105,29 +105,36 @@ function simula_fatura_bh(pr_v, pr_fv, pr_f){
 }
 
 function listar_sim_simples(){
+	$('#result_table > tr').remove(); //limpar conteudo da tabela antes de apresentar nova simulação
 	//parametros (pr_kwh, pr_tf)
 	var total_fatura = simula_fatura_simples(0.15729, 0.27068); //tarifa simples EDP
- 	adiciona_resultado("EDP Comercial", "Tarifa Simples Eco+", total_fatura);
+ 	mostra_resultado("EDP Comercial", "Tarifa Simples Eco+", total_fatura);
 	
 	total_fatura = simula_fatura_simples(0.1564, 0.2212); //tarifa simples Endesa
-	adiciona_resultado("Endesa", "Quero+Luz", total_fatura);
+	mostra_resultado("Endesa", "Quero+Luz", total_fatura);
+	
+	$('#result_table').show();
+	realca_mais_barato();
 }
 
 function listar_sim_bh(){
+	$('#result_table > tr').remove(); //limpar conteudo da tabela antes de apresentar nova simulação
 	//parametros (hv, hfv, tf)
 	var total_fatura = simula_fatura_bh(0.0959, 0.2008, 0.2778);//tarifa bi-horária EDP
-	adiciona_resultado("EDP Comercial", "Bi-Horária Eco+", total_fatura);
+	mostra_resultado("EDP Comercial", "Bi-Horária Eco+", total_fatura);
 	
 	total_fatura = simula_fatura_bh(0.0954, 0.1897, 0.2212);//tarifa bi-horária Endesa
-	adiciona_resultado("Endesa", "Bi-horária +Luz", total_fatura);
+	mostra_resultado("Endesa", "Bi-horária +Luz", total_fatura);
+	
+	$('#result_table').show();
+	realca_mais_barato();
 }
 
-function adiciona_resultado(com, nome_tarifa, val_sim) {
+function mostra_resultado(com, nome_tarifa, val_sim) {
         // creating rows
         var tb = document.getElementById("result_table");
         var row = document.createElement("tr");
         var com = com;
-        var abc=2;
 		
 		/*Insere comercializador*/        
         var cell = document.createElement("td");
@@ -149,5 +156,28 @@ function adiciona_resultado(com, nome_tarifa, val_sim) {
                    
 		/*Adiciona linha à tabela*/        
 		document.getElementById("result_table").appendChild(row); // add the row to the end of the table body
+		/*mostra a tabela*/
+		//document.getElementById("result_table").hidden=false;
 }
+
+/*function cria_theader () {
+	    var tb = document.getElementById("result_table");
+        var row = document.createElement("thead");
+        
+        var cell = document.createElement("th");
+        var cellText = document.createTextNode('Comercializador');
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        
+        var cell = document.createElement("th");
+        var cellText = document.createTextNode('Nome Tarifa');
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        
+        var cell = document.createElement("th");
+        var cellText = document.createTextNode('Resultado da simulação');
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+}
+*/
 

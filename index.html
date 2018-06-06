@@ -6,12 +6,14 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="js/utils.js"></script>
 		<script src="js/simula.js"></script>
+		<script src="js/balanco.js"></script>
 		
 	</head>
 	<body>
 		<h1>Bem-vindo ao simulador de Energia</h1>
 		<p>Este simulador pretende ser uma alternativa ao simulador da ERSE, disponível <a href="http://simulador.precos.erse.pt/">aqui</a></p>
-		<p>O simulador apenas se encontra disponível para simular a sua fatura de Eletricidade.</p>
+		<p>O simulador apenas se encontra disponível para simular valores para a sua fatura de Eletricidade.</p>
+		<section>
 		<h2>Espaço de simulação</h2>
 		<form>
 			<label for="tip_csmo">Indique o seu tipo de consumo:</label><br/>
@@ -35,18 +37,22 @@
 		</form>		
 		<!--p id="sim_res" hidden>A sua fatura para o consumo indicado, teria o valor de <span id="val_fat"> </span>  €</p-->
 		
-		<table id="result_table">
-			<tr>
-				<th>Comercializador</th>
-				<th>Tarifa</th>
-				<th>Resultado da simulação</th>
-			</tr>
+		<table id="result_table" hidden>
+			<thead>
+				<th style="width:200px">Comercializador</th>
+				<th style="width:200px">Tarifa</th>
+				<th style="width:200px">Resultado da simulação</th>
+			</thead>
 			<!--tr>
 				<td>EDP</td>
 				<td>Eco+ online</td>
 				<td id="val_fat"> </td>
 			</tr-->
-		</table> 
+		</table>
+		<img id="logo" src="img/edp.jpg" />
+		<p><caption>Este é o comercializador mais económico para si!</caption></p>
+		</section>
+
 		
 	</body>
 </html>

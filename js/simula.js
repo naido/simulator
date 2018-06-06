@@ -109,12 +109,17 @@ function listar_sim_simples(){
 	//parametros (pr_kwh, pr_tf)
 	var total_fatura = simula_fatura_simples(0.15729, 0.27068); //tarifa simples EDP
  	mostra_resultado("EDP Comercial", "Tarifa Simples Eco+", total_fatura);
+	var min = total_fatura;
 	
 	total_fatura = simula_fatura_simples(0.1564, 0.2212); //tarifa simples Endesa
 	mostra_resultado("Endesa", "Quero+Luz", total_fatura);
-	
+	if(total_fatura < min){
+		min = total_fatura;
+		$('#logo').attr('src', 'img/endesa_200.jpg');
+	}
+	//alert(min);
 	$('#result_table').show();
-	realca_mais_barato();
+	//realca_mais_barato();
 }
 
 function listar_sim_bh(){
@@ -127,7 +132,7 @@ function listar_sim_bh(){
 	mostra_resultado("Endesa", "Bi-horária +Luz", total_fatura);
 	
 	$('#result_table').show();
-	realca_mais_barato();
+	//realca_mais_barato();
 }
 
 function mostra_resultado(com, nome_tarifa, val_sim) {

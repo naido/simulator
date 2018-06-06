@@ -43,7 +43,8 @@ input[type="radio"] {
 
 table{
 	border: 1.5px solid blue; 
-	margin: 1em 0em; 
+	margin: 1em 0em;
+	float: left; 
 }
 
 th{
@@ -61,5 +62,10 @@ tr:nth-child(even) {
 }
 button {
 	padding: 0.5em;
+}
+aside {
+	width: 26.875%;
+	float: right;
+	padding: 0 0 2.5% 2.5%;
 }
 

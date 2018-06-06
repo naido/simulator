@@ -10,6 +10,7 @@
 		
 	</head>
 	<body>
+		<main>
 		<h1>Bem-vindo ao simulador de Energia</h1>
 		<p>Este simulador pretende ser uma alternativa ao simulador da ERSE, disponível <a href="http://simulador.precos.erse.pt/">aqui</a></p>
 		<p>O simulador apenas se encontra disponível para simular valores para a sua fatura de Eletricidade.</p>
@@ -36,7 +37,12 @@
 			</div>
 		</form>		
 		<!--p id="sim_res" hidden>A sua fatura para o consumo indicado, teria o valor de <span id="val_fat"> </span>  €</p-->
-		
+				<aside>
+			<span id="balanco" hidden>
+			<img id="logo"/><br />
+			<caption>Este é o comercializador mais económico para si!</caption>
+		</span>
+		</aside>
 		<table id="result_table" hidden>
 			<thead>
 				<th style="width:200px">Comercializador</th>
@@ -49,10 +55,9 @@
 				<td id="val_fat"> </td>
 			</tr-->
 		</table>
-		<img id="logo" src="img/edp.jpg" />
-		<p><caption>Este é o comercializador mais económico para si!</caption></p>
 		</section>
 
+	</main>
 		
 	</body>
 </html>
